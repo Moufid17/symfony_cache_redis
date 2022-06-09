@@ -9,17 +9,15 @@
 </style>
 
 <div class="example-wrapper">
-    <h1> Payment</h1>
-    {% if data is defined %}
-
-        <p>{{ dump(data)}}</p>
-        {# <p>{{ data.userFrom }}</p>
-        <p>{{ data.userTo }}</p>
-        <p>{{ data.datas.response }}</p>
-        <p>{{ data.datas.amount }}</p> #}
+    <h1> Payment </h1>
+    {% if isCached is defined %}
+        <p>The cache was hit : {{ isCached }}</p>
+        <p>DATA : {{ dump(data) }} </p>
     {% else %}
-        {% if cache is not null %}
-            <p> {{ dump(cache) }}</p>
+        {% if datas is not null %}
+            <p> {{ dump(datas) }}</p>
+        {% else %}
+            <p> Any payment have been made.</p>
         {% endif %}
     {% endif %}
 </div>
