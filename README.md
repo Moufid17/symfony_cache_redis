@@ -35,7 +35,7 @@
 4. Consulter le redis : 
     - Lancer redis sur le terminal : 
         ```
-        docker exec -it  symfony_cache_redis_redis_1 redis-cli
+        docker exec -it cache_redis_1 redis-cli
         ```
     - Liste des caches items créer :
         ```
