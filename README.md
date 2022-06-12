@@ -35,7 +35,7 @@
 4. Consulter le redis : 
     - Lancer redis sur le terminal : 
         ```
-        docker exec -it cache_redis_1 redis-cli
+        docker exec -it container_name redis-cli
         ```
     - Liste des caches items créer :
         ```
