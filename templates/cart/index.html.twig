@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon panier - Symfony Cache Redis{% endblock %}
+
+{% block body %}
+
+<div>
+    {% if datas is not defined %}
+        <h1> Mon panier </h1>
+        <hr>
+        <section>
+            <div class="product">
+              <img src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" />
+              <div class="description">
+                <h3>Stubborn Attachments</h3>
+                <h5>€20.00</h5>
+              </div>
+            </div>
+            <form action="{{ path('checkout') }}" method="POST">
+              <button type="submit" id="checkout-button" class="btn btn-primary">Acheter</button>
+            </form>
+          </section> 
+    {% else %}
+      <p> {{ dump(datas) }}</p>
+    {% endif %}
+</div>
+{% endblock %}

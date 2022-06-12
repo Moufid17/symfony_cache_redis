@@ -9,16 +9,21 @@ x-cache-from:
 services:
 ###> doctrine/doctrine-bundle ###
   db:
-    image: postgres:${POSTGRES_VERSION:-13}-alpine
+    image: postgres:13-alpine
+    restart: always
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-app}
-      # You should definitely change the password in production
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ChangeMe}
-      POSTGRES_USER: ${POSTGRES_USER:-symfony}
+      POSTGRES_DB: db
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: symfony
     volumes:
       - db-data:/var/lib/postgresql/data:rw
       # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
       # - ./docker/db/data:/var/lib/postgresql/data:rw
+    ports:
+      - target: 5432
+        published: 5432
+        protocol: tcp
+
 ###< doctrine/doctrine-bundle ###
   php:
       image: php:8.0-fpm
@@ -39,7 +44,18 @@ services:
       volumes:
         - ./:/var/www
         - app-cache:/var/www/var
-
+  
+  redis:
+    image: redis:6.2-alpine
+    volumes:
+      - type: volume
+        source: redis-store
+        target: /data
+        volume:
+          nocopy: true
+    ports:
+      - "6382:6379"
+      
   nginx:
     build:
       context: ./docker/nginx
@@ -55,8 +71,11 @@ services:
       - "80:80"
       - "443:443"
 
+
+
 volumes:
 ###> doctrine/doctrine-bundle ###
   db-data:
   app-cache: {}
+  redis-store:
 ###< doctrine/doctrine-bundle ###
