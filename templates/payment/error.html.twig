@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Echec de paiement !{% endblock %}
+
+{% block body %}
+
+<div>
+    {% if datas is not defined %}
+        <h1>Echec de paiement</h1>
+    {% else %}
+        <p> {{ dump(datas) }} </p>
+    {% endif %}
+</div>
+{% endblock %}
